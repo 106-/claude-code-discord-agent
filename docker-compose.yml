@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   discord-bot:
-    build: .
+    image: ubiq/claude-code-discord-agent:latest
     volumes:
       - ./config.yaml:/app/config.yaml:ro
     restart: unless-stopped

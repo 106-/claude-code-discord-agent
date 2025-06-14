@@ -1,4 +1,4 @@
-.PHONY: install run dev lint format test setup help build docker-run docker-compose-up docker-compose-down
+.PHONY: install run dev lint format test setup help build docker-run docker-compose-up docker-compose-down renew-container
 
 # Extract DISCORD_BOT_TOKEN from config.yaml using poetry run python
 DISCORD_BOT_TOKEN := $(shell poetry run python -c "import yaml; config = yaml.safe_load(open('config.yaml')); print(config['discord']['bot_token'])" 2>/dev/null || echo "")
@@ -56,3 +56,7 @@ docker-compose-up: ## Start services with docker-compose
 
 docker-compose-down: ## Stop services with docker-compose
 	docker-compose down
+
+renew-container:
+	docker-compose pull
+	docker-compose up -d
