@@ -6,7 +6,7 @@ discord:
 
 # Claude Code Configuration
 claude_code:
-  api_key: "your_anthropic_api_key_here"
+  # api_key: "your_anthropic_api_key_here"
   # api_url: "https://api.anthropic.com"
 
 # Bot Settings

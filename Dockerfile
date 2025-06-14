@@ -4,9 +4,12 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including Node.js
 RUN apt-get update && apt-get install -y \
     git \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
@@ -14,6 +17,9 @@ RUN pip install poetry
 
 # Configure Poetry: Don't create virtual environment (we're in a container)
 RUN poetry config virtualenvs.create false
+
+# Install Claude Code CLI
+RUN npm install -g @anthropic-ai/claude-code
 
 # Copy Poetry files and README
 COPY pyproject.toml poetry.lock README.md ./
