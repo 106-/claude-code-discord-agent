@@ -13,9 +13,6 @@ from claude_code_sdk import (
     AssistantMessage,
     TextBlock,
     ToolUseBlock,
-    ToolResultBlock,
-    UserMessage,
-    ResultMessage,
 )
 
 
