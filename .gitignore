@@ -57,11 +57,6 @@ ipython_config.py
 # pyenv
 .python-version
 
-# Poetry
-poetry.lock
-# Uncomment if you want to track poetry.lock
-# poetry.lock
-
 # Celery
 celerybeat-schedule
 celerybeat.pid
