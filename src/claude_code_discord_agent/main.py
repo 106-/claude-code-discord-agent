@@ -180,6 +180,10 @@ def main():
     if not config:
         return
 
+    # Set ANTHROPIC_API_KEY environment variable if configured
+    if config.get("claude_code", {}).get("api_key"):
+        os.environ["ANTHROPIC_API_KEY"] = config["claude_code"]["api_key"]
+
     # Initialize logging system
     setup_logging(config)
     logger = logging.getLogger(__name__)
