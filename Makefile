@@ -40,6 +40,7 @@ lint: ## Run linting
 
 format: ## Format code
 	poetry run ruff format .
+	poetry run ruff check . --fix
 
 test: ## Run tests
 	poetry run pytest
