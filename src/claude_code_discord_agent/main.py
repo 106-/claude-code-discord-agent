@@ -121,9 +121,7 @@ class ClaudeDiscordBot(commands.Bot):
                 )
                 responses = "\n".join(responses)
                 if responses and len(responses) > 4000:
-                    await message.reply(
-                        self.config["messages"]["long_response_error"]
-                    )
+                    await message.reply(self.config["messages"]["long_response_error"])
                 elif len(responses) == 0:
                     # If no responses were generated, send an empty response message
                     await message.reply(self.config["messages"]["empty_response"])
