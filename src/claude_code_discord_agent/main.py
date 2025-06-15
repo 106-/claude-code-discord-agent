@@ -41,7 +41,9 @@ class ClaudeDiscordBot(commands.Bot):
         # Initialize Claude Code SDK options with defaults
         bot_config = config.get("bot", {})
         self.claude_options = ClaudeCodeOptions(
-            system_prompt=bot_config.get("system_prompt", "You are a helpful Discord bot."),
+            system_prompt=bot_config.get(
+                "system_prompt", "You are a helpful Discord bot."
+            ),
             allowed_tools=bot_config.get("allowed_tools", []),
             max_turns=bot_config.get("max_turns", None),
         )
@@ -114,12 +116,19 @@ class ClaudeDiscordBot(commands.Bot):
                                     )
 
                 # Log the response and send it to Discord
-                self.logger.info(f"Claude response: {responses}")
-                if responses:
-                    await message.reply("\n".join(responses))
-                else:
+                self.logger.info(
+                    f"Claude response: {json.dumps(responses, indent=2, ensure_ascii=False)}"
+                )
+                responses = "\n".join(responses)
+                if responses and len(responses) > 4000:
+                    await message.reply(
+                        self.config["messages"]["long_response_warning"]
+                    )
+                elif len(responses) == 0:
                     # If no responses were generated, send an empty response message
                     await message.reply(self.config["messages"]["empty_response"])
+                else:
+                    await message.reply("\n".join(responses))
 
         except* Exception as e_group:
             for e in e_group.exceptions:
@@ -179,10 +188,13 @@ def main():
     # Load configuration from YAML file
     config = load_config()
     if not config:
+        logger.error("Configuration is empty or could not be loaded. Exiting.")
         return
 
     # Set ANTHROPIC_API_KEY environment variable if configured
-    if config.get("claude_code", {}).get("api_key"):
+    if config.get("claude_code") is not None and config.get("claude_code").get(
+        "api_key"
+    ):
         os.environ["ANTHROPIC_API_KEY"] = config["claude_code"]["api_key"]
 
     # Initialize logging system
