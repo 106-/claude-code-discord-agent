@@ -22,6 +22,7 @@ messages:
   empty_message: "Please provide a message. What would you like to ask?"
   general_error: "An error occurred. Please try again later."
   empty_response: "No response received from Claude."
+  long_response_error: "The response is too long to display here. Please try a different query."
 
 # Logging Configuration
 logging:
