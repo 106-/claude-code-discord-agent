@@ -188,7 +188,6 @@ def main():
     # Load configuration from YAML file
     config = load_config()
     if not config:
-        logger.error("Configuration is empty or could not be loaded. Exiting.")
         return
 
     # Set ANTHROPIC_API_KEY environment variable if configured
