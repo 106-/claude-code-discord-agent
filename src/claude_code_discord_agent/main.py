@@ -38,11 +38,12 @@ class ClaudeDiscordBot(commands.Bot):
         self.config = config
         self.logger = logging.getLogger(__name__)
 
-        # Initialize Claude Code SDK options
+        # Initialize Claude Code SDK options with defaults
+        bot_config = config.get("bot", {})
         self.claude_options = ClaudeCodeOptions(
-            system_prompt=config["bot"]["system_prompt"],
-            allowed_tools=config["bot"]["allowed_tools"],
-            max_turns=config["bot"]["max_turns"],
+            system_prompt=bot_config.get("system_prompt", "You are a helpful Discord bot."),
+            allowed_tools=bot_config.get("allowed_tools", []),
+            max_turns=bot_config.get("max_turns", None),
         )
 
     async def setup_hook(self):
