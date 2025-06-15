@@ -29,9 +29,11 @@ class ClaudeDiscordBot(commands.Bot):
         Args:
             config (dict): Configuration dictionary loaded from YAML file
         """
-        # Set up Discord intents to receive message content
+        # Set up Discord intents for multiple servers
         intents = discord.Intents.default()
         intents.message_content = True
+        intents.guilds = True
+        intents.guild_messages = True
         super().__init__(command_prefix=config["discord"]["prefix"], intents=intents)
 
         # Store configuration and set up logging
